@@ -1,6 +1,6 @@
 import Banner from "@/components/common/banner";
 import Layout from "@/components/layout";
-import http from "@/libs/axios";
+import { fetchFromApi } from "@/const";
 import { Box, Container } from "@mui/material";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
@@ -33,7 +33,7 @@ export default function About({
 }
 
 export async function getStaticProps(context: any) {
-  const { data } = await http("/about");
+  const { data } = await fetchFromApi("/about");
 
   return {
     props: { data },
