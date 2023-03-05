@@ -1,7 +1,7 @@
 import Banner from "@/components/common/banner";
 import Layout from "@/components/layout";
-import http from "@/libs/axios";
-import { InterventionCategory } from "@/__typescript";
+import { API_ENDPOINT, CRM_URL, fetchFromApi } from "@/const";
+import { Intervention, Pagination } from "@/__typescript";
 import {
   Box,
   Button,
@@ -11,27 +11,16 @@ import {
   Stack,
   alpha,
 } from "@mui/material";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import Image from "next/image";
-import { API_ENDPOINT, CRM_URL } from "@/const";
-import { truncate } from "lodash";
-import Link from "next/link";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import GridCard from "@/components/common/gridCard";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 type Props = {
-  category: {
-    data: InterventionCategory;
-  };
+  intervention: Intervention;
 };
 
-export default function Category({
-  category: {
-    data: {
-      id,
-      attributes: { name, description, slug, content, image, services },
-    },
+export default function InterventionService({
+  intervention: {
+    attributes: { name, content, image },
   },
 }: Props) {
   return (
@@ -88,23 +77,6 @@ export default function Category({
                   Demander un devis
                 </Button>
               </Box>
-
-              <Grid container spacing={5}>
-                {services?.data.map(
-                  ({
-                    id,
-                    attributes: { slug: serviceSlug, name, ...rest },
-                  }) => (
-                    <Grid key={id} item lg={6} xs={12}>
-                      <GridCard
-                        link={`/intervention/${slug}/${id}/${serviceSlug}`}
-                        title={name}
-                        {...rest}
-                      />
-                    </Grid>
-                  )
-                )}
-              </Grid>
             </Grid>
 
             <Grid item lg={4} xs={12}></Grid>
@@ -115,14 +87,22 @@ export default function Category({
   );
 }
 
-export async function getServerSideProps(context: any) {
-  const { id } = context.query;
+export async function getStaticProps(context: any) {
+  const { id, slug, service_slug } = context.query;
 
-  const { data: category } = await http(
-    `/services/${id}?populate[image]=*&populate[services][populate]=*`
+  const { data: resData } = await fetchFromApi<Pagination<Intervention>>(
+    `/intervenions?filters[slug]=${service_slug}&populate=*`
   );
+  // @ts-ignore
+  if (!resData.data.length) {
+    return {
+      notFound: true,
+    };
+  }
+
+  console.log(resData.data[0]);
 
   return {
-    props: { category },
+    props: { intervention: resData.data[0] },
   };
 }

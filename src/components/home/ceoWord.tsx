@@ -17,11 +17,13 @@ export default function CeoWord({ data: { image, description } }: Props) {
   return (
     <Box
       bgcolor="#fff"
-      py={3}
-      mt={4}
-      mb={{
-        lg: 4,
+      pb={{
+        lg: 8,
         xs: 0,
+      }}
+      pt={{
+        lg: 8,
+        xs: 6,
       }}
     >
       <Container>
@@ -116,14 +118,14 @@ export default function CeoWord({ data: { image, description } }: Props) {
           </Grid>
           <Grid item lg={6} xs={12}>
             <Fade right>
-            <Box position="relative" height={400} width="100%">
-              <Image
-                style={{ objectFit: "cover", borderRadius: "15px" }}
-                fill
-                src={`${API_ENDPOINT}${image.data.attributes.url}`}
-                alt={""}
-              />
-            </Box>
+              <Box position="relative" height={400} width="100%">
+                <Image
+                  style={{ objectFit: "cover", borderRadius: "15px" }}
+                  fill
+                  src={`${API_ENDPOINT}${image.data.attributes.url}`}
+                  alt={""}
+                />
+              </Box>
             </Fade>
           </Grid>
         </Grid>

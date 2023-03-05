@@ -23,7 +23,7 @@ const Layout: FunctionComponent<PropsWithChildren> = ({ children }) => {
           },
           a: {
             textDecoration: "none",
-            transition: "all 3s ease-out",
+            transition: "all 1s ease-out",
           },
           ul: {
             listStyle: "none",

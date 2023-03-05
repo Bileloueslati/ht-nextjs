@@ -21,6 +21,7 @@
     "eslint": "8.34.0",
     "eslint-config-next": "13.2.1",
     "lodash": "^4.17.21",
+    "material-ui-popup-state": "^5.0.4",
     "next": "13.2.1",
     "qs": "^6.11.0",
     "react": "18.2.0",

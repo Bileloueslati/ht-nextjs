@@ -237,7 +237,7 @@ export default function Footer() {
                         color="#fff"
                         ml={1}
                       >
-                        (+216) 36 125 878
+                        (+216) 21 110 088
                       </Typography>
                     </ListItem>
                     <ListItem disableGutters>

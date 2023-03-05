@@ -26,7 +26,7 @@ export type InterventionCategory = {
     name: string;
     description: string;
     thumbnail: Media;
-    image: Media,
+    image: Media;
     slug: string;
     content: Markdown;
     services?: {
@@ -63,6 +63,15 @@ export type Article = {
     content: Markdown;
     image: Media;
     slug: string;
+  };
+};
+
+export type Pagination<T> = {
+  data: T[];
+  meta: {
+    pagination: {
+      page: number;
+    };
   };
 };
 

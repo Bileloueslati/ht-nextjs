@@ -37,7 +37,7 @@ export default function HomeBanner({
         overflow: "hidden",
         height: {
           lg: "100vh",
-          xs: "80vh",
+          xs: "70vh",
         },
       }}
     >
@@ -79,6 +79,10 @@ export default function HomeBanner({
           transform: "translate(-50%, -50%)",
           textAlign: "center",
           pt: 15,
+          px: {
+            xs: 2.5,
+            lg: 0,
+          },
           width: {
             lg: "auto",
             xs: "100%",

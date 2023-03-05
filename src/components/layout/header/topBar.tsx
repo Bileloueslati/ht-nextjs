@@ -4,8 +4,8 @@ import {
   useTheme,
   Container,
   Stack,
-  Typography,
   Button,
+  Link as MuiLink,
 } from "@mui/material";
 import Link from "next/link";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
@@ -27,51 +27,53 @@ export default function TopBar() {
       <Container>
         <Stack alignItems="end">
           <Stack component="ul" direction="row" spacing={4} alignItems="center">
-            <Box
-              component="li"
-              sx={{
-                display: {
-                  xs: "none",
-                  lg: "block",
-                },
-              }}
-            >
-              <Link href="/">
-                <Typography
-                  component="span"
-                  color="#fff"
-                  fontFamily="poppins"
-                  fontWeight={300}
-                  fontSize={14}
-                >
-                  Avant & Aprés
-                </Typography>
-              </Link>
-            </Box>
-            <Box
-              component="li"
-              sx={{
-                display: {
-                  xs: "none",
-                  lg: "block",
-                },
-              }}
-            >
-              <Link href="/">
-                <Typography
-                  component="span"
-                  color="#fff"
-                  fontFamily="poppins"
-                  fontWeight={300}
-                  fontSize={14}
-                >
-                  Témoignages
-                </Typography>
-              </Link>
-            </Box>
+            {[
+              {
+                name: "Avant & Aprés",
+                link: "",
+              },
+              {
+                name: "Témoignages",
+                link: "",
+              },
+              {
+                name: "Blog",
+                link: "",
+              },
+            ].map(({ name }, i) => (
+              <Box
+                key={i}
+                component="li"
+                sx={{
+                  display: {
+                    xs: "none",
+                    lg: "block",
+                  },
+                }}
+              >
+                <Link href="/" passHref legacyBehavior>
+                  <MuiLink
+                    underline="none"
+                    color="#fff"
+                    sx={{
+                      fontSize: 14,
+                      "&:hover": {
+                        color: "primary.main",
+                      },
+                    }}
+                  >
+                    {name}
+                  </MuiLink>
+                </Link>
+              </Box>
+            ))}
 
             <Box component="li">
-              <Button variant="text" size="small" startIcon={<CalendarMonthIcon />}>
+              <Button
+                variant="text"
+                size="small"
+                startIcon={<CalendarMonthIcon />}
+              >
                 Prenez rendez-vous
               </Button>
             </Box>
