@@ -150,7 +150,6 @@ export default function Nav() {
                   component="span"
                   color="white"
                   fontWeight={500}
-                  textTransform="uppercase"
                   fontSize={"0.875rem"}
                   sx={{
                     "&:hover": {

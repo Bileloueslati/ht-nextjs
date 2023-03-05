@@ -87,7 +87,7 @@ export default function InterventionService({
   );
 }
 
-export async function getStaticProps(context: any) {
+export async function getServerSideProps(context: any) {
   const { id, slug, service_slug } = context.query;
 
   const { data: resData } = await fetchFromApi<Pagination<Intervention>>(

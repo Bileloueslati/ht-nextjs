@@ -50,6 +50,7 @@ const theme = createTheme({
           fontFamily: "poppins",
           fontWeight: 500,
           borderRadius: 25,
+          textTransform: "none"
         },
       },
     },

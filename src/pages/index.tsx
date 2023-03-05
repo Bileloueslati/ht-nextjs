@@ -47,7 +47,7 @@ export default function Home({ page, services, temoignages, articles }: any) {
   );
 }
 
-export async function getStaticProps(context: any) {
+export async function getServerSideProps(context: any) {
   const promises = [
     http.get(
       "/home?populate[banner][populate]=*&populate[services_content][populate]=*&populate[ceo_word][populate]=*"

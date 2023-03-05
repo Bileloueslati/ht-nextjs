@@ -32,7 +32,7 @@ export default function About({
   );
 }
 
-export async function getStaticProps(context: any) {
+export async function getServerSideProps(context: any) {
   const { data } = await fetchFromApi("/about");
 
   return {
