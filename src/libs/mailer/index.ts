@@ -2,20 +2,23 @@ import NodeMailer from "nodemailer";
 // @ts-ignore
 import Hbs from "nodemailer-express-handlebars";
 
+const { EMAIL_USERNAME, EMAIL_PASSWORD } = process.env;
+
 const mailer = NodeMailer.createTransport({
   host: "ssl0.ovh.net",
   port: 587,
-  secure: false, // true for 465, false for other ports
+  secure: false,
   auth: {
-    user: "noreply@canfianceesthetique.com",
-    pass: "Camfrog100", // generated ethereal password
+    user: EMAIL_USERNAME,
+    pass: EMAIL_PASSWORD,
   },
 });
 
 mailer.use(
   "compile",
   Hbs({
-    viewPath: 'views/email/', extName: '.hbs',
+    viewPath: "views/email/",
+    extName: ".hbs",
     viewEngine: {
       extname: ".hbs",
       layoutsDir: "views/email/",
