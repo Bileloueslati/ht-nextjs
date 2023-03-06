@@ -15,9 +15,9 @@ import Link from "next/link";
 import Fade from "react-reveal/Fade";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useGlobalContext } from "@/contexts/globalData";
 
 type Props = {
-  categories: InterventionCategoryT[];
   servicesContent: {
     title: string;
     description: string;
@@ -25,15 +25,16 @@ type Props = {
 };
 
 export default function InterventionCategories({
-  categories,
   servicesContent: { title, description },
 }: Props) {
   const isDesktop = useMediaQuery("(min-width:1281px)");
 
+  const { interventions } = useGlobalContext();
+
   return (
     <Box py={8} sx={{ background: "#e6e6e659" }}>
       <Container>
-        <Box sx={{ textAlign: "center", mx: "auto", maxWidth: "550px", mb: 4 }}>
+        <Box sx={{ textAlign: "center", mx: "auto", maxWidth: "650px", mb: 4 }}>
           <Typography
             variant="h2"
             fontSize={30}
@@ -69,7 +70,7 @@ export default function InterventionCategories({
           }}
           mt={0.6}
         >
-          {categories.map(
+          {interventions.map(
             ({ id, attributes: { slug, name, description, thumbnail } }) => (
               <Grid
                 key={id}

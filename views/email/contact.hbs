@@ -1,0 +1,17 @@
+<p>Un patient vient de demander un rendez-vous<p>
+
+<ul>
+
+<li>Nom et prénom : {{data.fullName}}</li>
+
+<li>Email : {{data.email}}</li>
+
+<li>Pays: {{ data.country.label }}</li>
+
+<li>Numéro de téléphone : +({{ data.country.phone }}){{data.phone_number}}</li>
+
+<li>date : {{data.date}}</li>
+
+<li>Type de contact souhaité : {{data.contact_type}}</li>
+
+</ul>

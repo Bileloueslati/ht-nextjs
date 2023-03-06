@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from "@/const";
+import { API_ENDPOINT, CRM_URL } from "@/const";
 import { Media } from "@/__typescript";
 import {
   Stack,
@@ -125,6 +125,8 @@ export default function HomeBanner({
         </Typography>
         <Stack mt={3} gap={3} direction="row" justifyContent="center">
           <Button
+            href={CRM_URL}
+            target="_blank"
             variant="contained"
             sx={{ color: "#fff", boxShadow: "none" }}
             size={isDesktop ? "large" : "medium"}

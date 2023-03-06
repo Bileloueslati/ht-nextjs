@@ -1,8 +1,11 @@
 import { Temoignage as TemoignageT } from "@/__typescript";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
 import Temoignage from "../temoignage";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Link from "next/link";
 
 type Props = {
   temoignages: TemoignageT[];
@@ -29,10 +32,12 @@ const swiperConfig = {
 };
 
 export default function Temoignages({ temoignages }: Props) {
+  const isDesktop = useMediaQuery("(min-width:1281px)");
+
   return (
-    <Box py={8}>
+    <Box py={4}>
       <Container>
-        <Box sx={{ textAlign: "center", mx: "auto", maxWidth: "500px", mb: 4 }}>
+        <Box sx={{ textAlign: "center", mx: "auto", maxWidth: "650px", mb: 4 }}>
           <Typography
             variant="h2"
             fontSize={30}
@@ -43,6 +48,20 @@ export default function Temoignages({ temoignages }: Props) {
           >
             Témoignages
           </Typography>
+          <Typography fontSize={20} variant="caption" sx={{ display: "block" }}>
+            Nos patients partagent leurs expériences et témoignent leurs
+            satisfactions pendant leurs séjours de tourisme médical en Tunisie
+          </Typography>
+          <Link passHref legacyBehavior href="/temoignages">
+            <Button
+              variant="contained"
+              sx={{ mt: 2 }}
+              size={isDesktop ? "large" : "medium"}
+              startIcon={<ChevronRightIcon />}
+            >
+              Voir tous les témoignages
+            </Button>
+          </Link>
         </Box>
         <Swiper {...swiperConfig} modules={[Autoplay]}>
           {temoignages.map((temoignage) => (

@@ -40,6 +40,7 @@ export type Intervention = {
   attributes: {
     name: string;
     description: string;
+    thumbnail: Media,
     image: Media;
     slug: string;
     content: Markdown;

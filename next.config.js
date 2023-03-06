@@ -13,6 +13,15 @@ const nextConfig = {
         hostname: "img.youtube.com",
         port: "137",
       },
+      {
+        protocol: "https",
+        hostname: "flagcdn.com",
+      },
+
+      {
+        protocol: "https",
+        hostname: "i3.ytimg.com",
+      },
     ],
   },
 };

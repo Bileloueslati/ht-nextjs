@@ -60,6 +60,10 @@ export default function Temoignage({
     handleIsLoading();
   };
 
+  const [imageSrc, setImageSrc] = useState<string>(
+    `https://i3.ytimg.com/vi/${videoId}/maxresdefault.jpg`
+  );
+
   if (!videoId) return null;
 
   return (
@@ -81,13 +85,17 @@ export default function Temoignage({
         <Box position="relative" height={350} zIndex={-1} overflow="hidden">
           <Image
             className="img"
-            src={`${API_ENDPOINT}${image.data.attributes.url}`}
+            src={imageSrc}
             fill
             alt={intervention}
             style={{
               borderRadius: "10px",
               transition: "transform 1000ms ease-in-out",
               transformOrigin: "left top",
+              objectFit: "cover"
+            }}
+            onError={() => {
+              setImageSrc(`${API_ENDPOINT}${image.data.attributes.url}`);
             }}
           />
         </Box>

@@ -3,56 +3,8 @@ import Link from "next/link";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import { useRouter } from "next/router";
-
-export const navItems = [
-  {
-    name: "À propos",
-    link: "/about",
-    children: [],
-  },
-  {
-    name: "Interventions",
-    link: "/about",
-    children: [
-      {
-        name: "Chirurgie du visage",
-        link: "/about",
-      },
-      {
-        name: "Chirurgie des seins",
-        link: "/about",
-      },
-      {
-        name: "Chirurgie de la silhouette",
-        link: "/about",
-      },
-      {
-        name: "Chirurgie d'obésité",
-        link: "/",
-      },
-    ],
-  },
-  {
-    name: "Obésité",
-    link: "/about",
-    children: [],
-  },
-  {
-    name: "Invitro",
-    link: "/about",
-    children: [],
-  },
-  {
-    name: "Dentaire",
-    link: "/about",
-    children: [],
-  },
-  {
-    name: "Soins esthétiques",
-    link: "/about",
-    children: [],
-  },
-] as const;
+import { useGlobalContext } from "@/contexts/globalData";
+import { CRM_URL } from "@/const";
 
 export default function Nav() {
   const router = useRouter();
@@ -60,6 +12,41 @@ export default function Nav() {
   const handleClick = (href: string) => {
     router.push(href);
   };
+
+  const { interventions } = useGlobalContext();
+
+  const navItems = [
+    {
+      name: "À propos",
+      link: "/about",
+      children: [],
+    },
+    {
+      name: "Interventions",
+      link: "/about",
+      children: interventions,
+    },
+    {
+      name: "Obésité",
+      link: "/about",
+      children: [],
+    },
+    {
+      name: "Invitro",
+      link: "/about",
+      children: [],
+    },
+    {
+      name: "Dentaire",
+      link: "/about",
+      children: [],
+    },
+    {
+      name: "Soins esthétiques",
+      link: "/about",
+      children: [],
+    },
+  ] as const;
 
   return (
     <Box
@@ -124,7 +111,7 @@ export default function Nav() {
                       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                       {...bindMenu(popupState)}
                     >
-                      {children.map(({ name, link }, i) => (
+                      {children.map(({ id, attributes: { name, slug } }, i) => (
                         <MenuItem
                           sx={{
                             fontWeight: 400,
@@ -134,7 +121,7 @@ export default function Nav() {
                           key={i}
                           onClick={() => {
                             popupState.close();
-                            handleClick(link);
+                            handleClick(`/intervention/${slug}/${id}`);
                           }}
                         >
                           {name}
@@ -165,7 +152,12 @@ export default function Nav() {
         ))}
 
         <Box component="li">
-          <Button variant="contained" startIcon={<PermIdentityOutlinedIcon />}>
+          <Button
+            href={CRM_URL}
+            target="_blank"
+            variant="contained"
+            startIcon={<PermIdentityOutlinedIcon />}
+          >
             Espace perso
           </Button>
         </Box>

@@ -86,7 +86,7 @@ export default function Article({
         <Container>
           <Grid container>
             <Grid item lg={8} xs={12}>
-              <ReactMarkdown className="blog_content">
+              <ReactMarkdown className="markdown_content">
                 {attributes.content}
               </ReactMarkdown>
             </Grid>

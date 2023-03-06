@@ -1,6 +1,5 @@
 import Banner from "@/components/common/banner";
 import Layout from "@/components/layout";
-import http from "@/libs/axios";
 import { InterventionCategory } from "@/__typescript";
 import {
   Box,
@@ -14,7 +13,7 @@ import {
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import Image from "next/image";
-import { API_ENDPOINT, CRM_URL } from "@/const";
+import { API_ENDPOINT, CRM_URL, fetchFromApi } from "@/const";
 import { truncate } from "lodash";
 import Link from "next/link";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -118,7 +117,7 @@ export default function Category({
 export async function getServerSideProps(context: any) {
   const { id } = context.query;
 
-  const { data: category } = await http(
+  const { data: category } = await fetchFromApi(
     `/services/${id}?populate[image]=*&populate[services][populate]=*`
   );
 

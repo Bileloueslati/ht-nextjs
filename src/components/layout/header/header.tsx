@@ -16,7 +16,7 @@ export default function Header() {
       sx={{
         position: "absolute",
         right: "0",
-        zIndex: 6666,
+        zIndex: 1100,
         width: "100%",
       }}
     >

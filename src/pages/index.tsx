@@ -4,12 +4,11 @@ import CeoWord from "@/components/home/ceoWord";
 import InterventionCategories from "@/components/home/interventionCategories";
 import Temoignages from "@/components/home/temoignages";
 import Layout from "@/components/layout";
-import http from "@/libs/axios";
+import { fetchFromApi } from "@/const";
 import {
   Page,
   InterventionCategory as InterventionCategoryT,
 } from "@/__typescript";
-import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
 
@@ -34,13 +33,8 @@ export default function Home({ page, services, temoignages, articles }: any) {
       <Layout>
         <HomeBanner banner={attributes.banner} />
         <CeoWord data={attributes.ceo_word} />
-        <InterventionCategories
-          servicesContent={attributes.services_content}
-          categories={services.data}
-        />
-
+        <InterventionCategories servicesContent={attributes.services_content} />
         <Temoignages temoignages={temoignagesAttributes.temoignages} />
-
         <Articles articles={articles.data} />
       </Layout>
     </>
@@ -48,21 +42,19 @@ export default function Home({ page, services, temoignages, articles }: any) {
 }
 
 export async function getServerSideProps(context: any) {
-  const promises = [
-    http.get(
-      "/home?populate[banner][populate]=*&populate[services_content][populate]=*&populate[ceo_word][populate]=*"
-    ),
-    http.get("/services?populate=*"),
-    http.get("/temoignage?populate[temoignages][populate]=*"),
-    http.get("/articles?populate=*"),
+  const urls = [
+    "/home?populate[banner][populate]=*&populate[services_content][populate]=*&populate[ceo_word][populate]=*",
+    "/temoignage?populate[temoignages][populate]=*",
+    "/articles?populate=*&pagination[limit]=3",
   ];
 
-  const [page, services, temoignages, articles] = await Promise.all(promises);
+  const promises = urls.map((url) => fetchFromApi(url));
+
+  const [page, temoignages, articles] = await Promise.all(promises);
 
   return {
     props: {
       page: page.data,
-      services: services.data,
       temoignages: temoignages.data,
       articles: articles.data,
     },

@@ -5,13 +5,13 @@ import { useState, Fragment } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import { navItems } from "./nav";
 import Link from "next/link";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@mui/material/styles";
 import { Divider, Typography } from "@mui/material";
 import logo from "../../../assets/img/logo.png";
 import Image from "next/image";
+import { useGlobalContext } from "@/contexts/globalData";
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -25,6 +25,8 @@ export default function MobileNav() {
   const close = () => {
     setOpen(false);
   };
+
+  const {interventions} = useGlobalContext()
 
   return (
     <Box>
@@ -59,10 +61,10 @@ export default function MobileNav() {
         </Box>
 
         <List sx={{ mt: 4 }}>
-          {navItems.map(({ name, link, children }, i) => (
+          {interventions.map(({attributes: { name, slug }}) => (
             <Fragment key={name}>
               <ListItem>
-                <Link href={link}>
+                <Link href={name}>
                   <Typography sx={{ fontWeight: 600 }} component="span">
                     {name}
                   </Typography>

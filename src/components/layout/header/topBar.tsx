@@ -4,14 +4,14 @@ import {
   useTheme,
   Container,
   Stack,
-  Button,
   Link as MuiLink,
 } from "@mui/material";
 import Link from "next/link";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import Appointement from "./appointement";
+import { cloneElement } from "react";
 
 export default function TopBar() {
   const {
@@ -34,13 +34,13 @@ export default function TopBar() {
               },
               {
                 name: "Témoignages",
-                link: "",
+                link: "/temoignages",
               },
               {
                 name: "Blog",
-                link: "",
+                link: "/blog",
               },
-            ].map(({ name }, i) => (
+            ].map(({ name, link }, i) => (
               <Box
                 key={i}
                 component="li"
@@ -51,7 +51,7 @@ export default function TopBar() {
                   },
                 }}
               >
-                <Link href="/" passHref legacyBehavior>
+                <Link href={link} passHref legacyBehavior>
                   <MuiLink
                     underline="none"
                     color="#fff"
@@ -69,13 +69,7 @@ export default function TopBar() {
             ))}
 
             <Box component="li">
-              <Button
-                variant="text"
-                size="small"
-                startIcon={<CalendarMonthIcon />}
-              >
-                Prenez rendez-vous
-              </Button>
+              <Appointement />
             </Box>
             <Box component="li">
               <Stack
@@ -84,39 +78,37 @@ export default function TopBar() {
                 spacing={2.5}
                 sx={{ listStyle: "none", p: 0 }}
               >
-                <Stack
-                  component="li"
-                  sx={{
-                    color: "#fff",
-                    "&:hover": {
-                      color: "primary.main",
-                    },
-                  }}
-                >
-                  <FacebookOutlinedIcon fontSize="small" />
-                </Stack>
-                <Stack
-                  component="li"
-                  sx={{
-                    color: "#fff",
-                    "&:hover": {
-                      color: "primary.main",
-                    },
-                  }}
-                >
-                  <InstagramIcon fontSize="small" />
-                </Stack>
-                <Stack
-                  component="li"
-                  sx={{
-                    color: "#fff",
-                    "&:hover": {
-                      color: "primary.main",
-                    },
-                  }}
-                >
-                  <YouTubeIcon fontSize="small" />
-                </Stack>
+                {[
+                  {
+                    icon: <FacebookOutlinedIcon />,
+                    link: "https://www.facebook.com/Chirurgieesthetiquetunisie/",
+                  },
+                  {
+                    icon: <InstagramIcon />,
+                    link: "https://www.instagram.com/healthtraveltunisie/?hl=fr",
+                  },
+                  {
+                    icon: <YouTubeIcon />,
+                    link: "https://www.youtube.com/@healthtraveltunisie3",
+                  },
+                ].map(({ icon, link }, i) => (
+                  <Stack
+                    key={i}
+                    component="li"
+                    sx={{
+                      a: {
+                        color: "#fff",
+                        "&:hover": {
+                          color: "primary.main",
+                        },
+                      },
+                    }}
+                  >
+                    <a href={link} target="_blank">
+                      {cloneElement(icon, { size: "small", color: "inherit" })}
+                    </a>
+                  </Stack>
+                ))}
               </Stack>
             </Box>
           </Stack>

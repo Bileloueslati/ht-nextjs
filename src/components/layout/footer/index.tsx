@@ -17,10 +17,9 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import logo from "../../../assets/img/logo.png";
 import Image from "next/image";
-import { navItems } from "../header/nav";
 import NextLink from "next/link";
 import { useTheme } from "@mui/material/styles";
-import NewsLetter from "./newsLetter";
+import { useGlobalContext } from "@/contexts/globalData";
 
 const BlockTitle = ({ title }: { title: string }) => (
   <Typography
@@ -35,15 +34,16 @@ const BlockTitle = ({ title }: { title: string }) => (
 );
 
 export default function Footer() {
-  const firstNavColumn = navItems.slice(0, navItems.length / 2);
+  const { interventions } = useGlobalContext();
 
-  const secondNavColumn = navItems.slice(firstNavColumn.length);
+  const firstNavColumn = interventions.slice(0, Math.ceil(interventions.length / 2));
+
+  const secondNavColumn = interventions.slice(firstNavColumn.length);
 
   const { palette } = useTheme();
 
   return (
     <Box mt="auto" sx={{ backgroundColor: "#e6e6e659" }}>
-      <NewsLetter />
       <Box
         component="footer"
         mt="auto"
@@ -154,73 +154,85 @@ export default function Footer() {
                   >
                     <Grid item lg={6} xs={6}>
                       <List>
-                        {firstNavColumn.map(({ name, link }, i) => (
-                          <ListItem disableGutters key={i}>
-                            <NextLink href={link} passHref legacyBehavior>
-                              <Link
-                                underline="none"
-                                color="#fff"
-                                sx={{
-                                  transition: "all 0.5s ease-out",
-                                  "&:hover": {
-                                    pl: 1,
-                                    "span, svg": {
-                                      color: palette.primary.main,
-                                    },
-                                  },
-                                }}
+                        {firstNavColumn.map(
+                          ({ id, attributes: { name, slug } }, i) => (
+                            <ListItem disableGutters key={i}>
+                              <NextLink
+                                href={`/intervention/${slug}/${id}`}
+                                passHref
+                                legacyBehavior
                               >
-                                <KeyboardArrowRightOutlinedIcon
-                                  fontSize="small"
-                                  color="inherit"
-                                />
-                                <Typography
-                                  fontSize={14}
-                                  component="span"
-                                  color="inherit"
+                                <Link
+                                  underline="none"
+                                  color="#fff"
+                                  sx={{
+                                    transition: "all 0.5s ease-out",
+                                    "&:hover": {
+                                      pl: 1,
+                                      "span, svg": {
+                                        color: palette.primary.main,
+                                      },
+                                    },
+                                  }}
                                 >
-                                  {name}
-                                </Typography>
-                              </Link>
-                            </NextLink>
-                          </ListItem>
-                        ))}
+                                  <KeyboardArrowRightOutlinedIcon
+                                    fontSize="small"
+                                    color="inherit"
+                                  />
+                                  <Typography
+                                    fontSize={14}
+                                    component="span"
+                                    color="inherit"
+                                  >
+                                    {name}
+                                  </Typography>
+                                </Link>
+                              </NextLink>
+                            </ListItem>
+                          )
+                        )}
                       </List>
                     </Grid>
 
                     <Grid item lg={6} xs={6}>
                       <List>
-                        {secondNavColumn.map(({ name, link }, i) => (
-                          <ListItem disableGutters key={i}>
-                            <NextLink href={link} passHref legacyBehavior>
-                              <Link
-                                underline="none"
-                                color="#fff"
-                                sx={{
-                                  transition: "all 0.5s ease-out",
-                                  "&:hover": {
-                                    pl: 1,
-                                    "span, svg": {
-                                      color: palette.primary.main,
-                                    },
-                                  },
-                                }}
+                        {secondNavColumn.map(
+                          ({ id, attributes: { name, slug } }, i) => (
+                            <ListItem disableGutters key={i}>
+                              <NextLink
+                                href={`/intervention/${slug}/${id}`}
+                                passHref
+                                legacyBehavior
                               >
-                                <KeyboardArrowRightOutlinedIcon
-                                  fontSize="small"
-                                  color="inherit"
-                                />
-                                <Typography
-                                  fontSize={14}
-                                  component="span"
-                                  color="inherit"
+                                <Link
+                                  underline="none"
+                                  color="#fff"
+                                  sx={{
+                                    transition: "all 0.5s ease-out",
+                                    "&:hover": {
+                                      pl: 1,
+                                      "span, svg": {
+                                        color: palette.primary.main,
+                                      },
+                                    },
+                                  }}
                                 >
-                                  {name}
-                                </Typography>
-                              </Link>
-                            </NextLink>
-                          </ListItem>
-                        ))}
+                                  <KeyboardArrowRightOutlinedIcon
+                                    fontSize="small"
+                                    color="inherit"
+                                  />
+                                  <Typography
+                                    fontSize={14}
+                                    component="span"
+                                    color="inherit"
+                                  >
+                                    {name}
+                                  </Typography>
+                                </Link>
+                              </NextLink>
+                            </ListItem>
+                          )
+                        )}
                       </List>
                     </Grid>
                   </Grid>
