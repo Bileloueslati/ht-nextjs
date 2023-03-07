@@ -6,6 +6,9 @@ const mailer = NodeMailer.createTransport({
   host: "ssl0.ovh.net",
   port: 587,
   secure: false,
+  tls: {
+    rejectUnauthorized: false,
+  },
   auth: {
     user: process.env.EMAIL_USERNAME,
     pass: process.env.EMAIL_PASSWORD,
