@@ -2,15 +2,13 @@ import NodeMailer from "nodemailer";
 // @ts-ignore
 import Hbs from "nodemailer-express-handlebars";
 
-const { EMAIL_USERNAME, EMAIL_PASSWORD } = process.env;
-
 const mailer = NodeMailer.createTransport({
   host: "ssl0.ovh.net",
   port: 587,
   secure: false,
   auth: {
-    user: EMAIL_USERNAME,
-    pass: EMAIL_PASSWORD,
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD,
   },
 });
 
