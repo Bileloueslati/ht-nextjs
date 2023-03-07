@@ -12,32 +12,36 @@ export default async function handler(
   } else {
     const data = req.body as AppointementFormData;
 
-    await new Promise((resolve, reject) => {
-      mailer.sendMail(
-        {
-          to: "mrbileltn@gmail.com",
-          from: "noreply@canfianceesthetique.com",
-          subject: "Demande de rendez-vous",
-          replyTo: data.email,
-          // @ts-ignore
-          context: {
-            data,
+    try {
+      await new Promise((resolve, reject) => {
+        mailer.sendMail(
+          {
+            to: "mrbileltn@gmail.com",
+            from: "noreply@canfianceesthetique.com",
+            subject: "Demande de rendez-vous",
+            replyTo: data.email,
+            // @ts-ignore
+            context: {
+              data,
+            },
+            // @ts-ignore
+            template: "contact",
           },
-          // @ts-ignore
-          template: "contact",
-        },
-        (err, info) => {
-          if (err) {
-            //console.error(err);
-            res.status(404).json({ err });
-            reject(err);
-          } else {
-            // console.log(info)
-            res.status(200).json(req.body);
-            resolve(info);
+          (e, info) => {
+            if (e) {
+              console.error(e);
+              res.status(400).json({ e });
+              reject(e);
+            } else {
+              console.log(info)
+              res.status(200).json(req.body);
+              resolve(info);
+            }
           }
-        }
-      );
-    });
+        );
+      });
+    } catch (e: any) {
+      res.status(400).json({ e });
+    }
   }
 }

@@ -17,15 +17,6 @@ app.prepare().then(() => {
 
   server.use(compression());
 
-  server.use(function (req, res, next) {
-    req.url = req.originalUrl.replace(
-      "/nextjs_custom_server/_next",
-      "production"
-    );
-
-    next();
-  });
-
   server.get("/_next/*", (req, res) => {
     handle(req, res);
   });
@@ -36,7 +27,6 @@ app.prepare().then(() => {
 
   server.listen(port, (err) => {
     if (err) throw err;
-
     console.log(`Server ready on ${port}`);
   });
 });
