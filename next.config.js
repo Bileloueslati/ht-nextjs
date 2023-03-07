@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+
   images: {
     domains: ["ht-api.canfianceesthetique", "img.youtube.com"],
     remotePatterns: [

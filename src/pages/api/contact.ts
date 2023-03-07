@@ -41,12 +41,3 @@ export default async function handler(
     });
   }
 }
-
-export const config = {
-  api: {
-    // disable nextjs's body parser while deployed
-    // (as body parsing is handled by `https.onRequest()`),
-    // but enable it for local development using `next dev`
-    bodyParser: process.env.NODE_ENV !== "production",
-  },
-};
