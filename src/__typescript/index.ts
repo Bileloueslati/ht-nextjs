@@ -11,6 +11,7 @@ export type Media = {
     id: number;
     attributes: {
       url: string;
+      mime: string;
       formats: {
         thumbnail: {
           url: "string";
@@ -23,6 +24,7 @@ export type Media = {
 export type InterventionCategory = {
   id: number;
   attributes: {
+    seo?: Seo,
     name: string;
     description: string;
     thumbnail: Media;
@@ -38,9 +40,10 @@ export type InterventionCategory = {
 export type Intervention = {
   id: number;
   attributes: {
+    seo?: Seo,
     name: string;
     description: string;
-    thumbnail: Media,
+    thumbnail: Media;
     image: Media;
     slug: string;
     content: Markdown;
@@ -79,3 +82,8 @@ export type Pagination<T> = {
 };
 
 export type Markdown = string;
+
+export type Seo = {
+  metaTitle: string;
+  metaDescription: string;
+};

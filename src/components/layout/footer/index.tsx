@@ -270,7 +270,7 @@ export default function Footer() {
                         color="#fff"
                         ml={1}
                       >
-                        1 rue de la république, les berges du lac, Tunis
+                        Les berges du lac, Tunis
                       </Typography>
                     </ListItem>
                   </List>

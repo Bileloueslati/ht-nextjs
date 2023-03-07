@@ -48,7 +48,10 @@ export default function Temoignages({ temoignages }: Props) {
           >
             Témoignages
           </Typography>
-          <Typography fontSize={20} variant="caption" sx={{ display: "block" }}>
+          <Typography fontSize={{
+              lg: 18,
+              xs: 16
+          }} variant="caption" sx={{ display: "block" }}>
             Nos patients partagent leurs expériences et témoignent leurs
             satisfactions pendant leurs séjours de tourisme médical en Tunisie
           </Typography>

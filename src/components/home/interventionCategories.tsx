@@ -1,5 +1,4 @@
 import { API_ENDPOINT, CRM_URL } from "@/const";
-import { InterventionCategory as InterventionCategoryT } from "@/__typescript";
 import {
   Container,
   Grid,
@@ -34,7 +33,7 @@ export default function InterventionCategories({
   return (
     <Box py={8} sx={{ background: "#e6e6e659" }}>
       <Container>
-        <Box sx={{ textAlign: "center", mx: "auto", maxWidth: "650px", mb: 4 }}>
+        <Box sx={{ textAlign: "center", mx: "auto", maxWidth: "750px", mb: 4 }}>
           <Typography
             variant="h2"
             fontSize={30}
@@ -46,7 +45,14 @@ export default function InterventionCategories({
             {title}
           </Typography>
 
-          <Typography fontSize={20} variant="caption" sx={{ display: "block" }}>
+          <Typography
+            fontSize={{
+              lg: 18,
+              xs: 16,
+            }}
+            variant="caption"
+            sx={{ display: "block" }}
+          >
             {description}
           </Typography>
 
