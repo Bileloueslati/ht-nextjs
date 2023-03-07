@@ -44,6 +44,8 @@ export type Intervention = {
     image: Media;
     slug: string;
     content: Markdown;
+    primary_nav?: boolean;
+    navigation_name?: string;
     services?: {
       data: Intervention[];
     };

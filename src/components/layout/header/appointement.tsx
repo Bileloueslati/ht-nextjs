@@ -43,6 +43,11 @@ const style = {
   py: 3,
   px: 5,
   borderRadius: 3,
+  maxHeight: {
+    lg: "80%",
+    xs: "75%",
+  },
+  overflowY: "scroll",
   width: {
     lg: 700,
     xs: "95%",

@@ -1,4 +1,3 @@
-import { AppointementFormData } from "@/components/layout/header/appointement";
 import mailer from "@/libs/mailer";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -7,7 +6,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     res.status(405);
     res.end();
   } else {
-    const data = req.body as AppointementFormData;
+    const data = req.body;
+
     mailer
       .sendMail({
         to: "mrbileltn@gmail.com",

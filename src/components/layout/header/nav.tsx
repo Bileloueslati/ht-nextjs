@@ -15,38 +15,13 @@ export default function Nav() {
 
   const { interventions } = useGlobalContext();
 
-  const navItems = [
-    {
-      name: "À propos",
-      link: "/about",
-      children: [],
-    },
-    {
-      name: "Interventions",
-      link: "/about",
-      children: interventions,
-    },
-    {
-      name: "Obésité",
-      link: "/about",
-      children: [],
-    },
-    {
-      name: "Invitro",
-      link: "/about",
-      children: [],
-    },
-    {
-      name: "Dentaire",
-      link: "/about",
-      children: [],
-    },
-    {
-      name: "Soins esthétiques",
-      link: "/about",
-      children: [],
-    },
-  ] as const;
+  const primaryItems = interventions.filter(
+    ({ attributes: { primary_nav } }) => Boolean(primary_nav) === true
+  );
+
+  const secondaryItems = interventions.filter(
+    ({ attributes: { primary_nav } }) => Boolean(primary_nav) === false
+  );
 
   return (
     <Box
@@ -67,72 +42,97 @@ export default function Nav() {
         alignItems="center"
         sx={{ listStyle: "none" }}
       >
-        {navItems.map(({ name, link, children }) => (
-          <Box component="li" key={name} sx={{ color: "white" }}>
-            {children.length ? (
-              <PopupState variant="popover" popupId="demo-popup-menu">
-                {(popupState) => (
-                  <>
-                    <Button
-                      variant="text"
-                      sx={{ color: "#fff" }}
-                      {...bindTrigger(popupState)}
-                    >
-                      {name}
-                    </Button>
-                    <Menu
-                      PaperProps={{
-                        elevation: 0,
-                        sx: {
-                          overflow: "visible",
-                          filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                          mt: 1.5,
-                          "& .MuiAvatar-root": {
-                            width: 32,
-                            height: 32,
-                            ml: -0.5,
-                            mr: 1,
-                          },
-                          "&:before": {
-                            content: '""',
-                            display: "block",
-                            position: "absolute",
-                            top: 0,
-                            right: 14,
-                            width: 10,
-                            height: 10,
-                            bgcolor: "background.paper",
-                            transform: "translateY(-50%) rotate(45deg)",
-                            zIndex: 0,
-                          },
-                        },
-                      }}
-                      transformOrigin={{ horizontal: "right", vertical: "top" }}
-                      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-                      {...bindMenu(popupState)}
-                    >
-                      {children.map(({ id, attributes: { name, slug } }, i) => (
-                        <MenuItem
-                          sx={{
-                            fontWeight: 400,
-                            fontSize: "0.875rem",
-                            cursor: "pointer",
-                          }}
-                          key={i}
-                          onClick={() => {
-                            popupState.close();
-                            handleClick(`/intervention/${slug}/${id}`);
-                          }}
-                        >
-                          {name}
-                        </MenuItem>
-                      ))}
-                    </Menu>
-                  </>
-                )}
-              </PopupState>
-            ) : (
-              <Link href={link}>
+        <Box component="li">
+          <Link href="/">
+            <Typography
+              component="span"
+              color="white"
+              fontWeight={500}
+              fontSize={"0.875rem"}
+              sx={{
+                "&:hover": {
+                  color: "primary.main",
+                },
+              }}
+            >
+              A propos
+            </Typography>
+          </Link>
+        </Box>
+
+        <Box>
+          <PopupState variant="popover" popupId="demo-popup-menu">
+            {(popupState) => (
+              <>
+                <Button
+                  variant="text"
+                  sx={{ color: "#fff" }}
+                  {...bindTrigger(popupState)}
+                >
+                  Interventions
+                </Button>
+                <Menu
+                  PaperProps={{
+                    elevation: 0,
+                    sx: {
+                      overflow: "visible",
+                      filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                      mt: 1.5,
+                      "& .MuiAvatar-root": {
+                        width: 32,
+                        height: 32,
+                        ml: -0.5,
+                        mr: 1,
+                      },
+                      "&:before": {
+                        content: '""',
+                        display: "block",
+                        position: "absolute",
+                        top: 0,
+                        right: 14,
+                        width: 10,
+                        height: 10,
+                        bgcolor: "background.paper",
+                        transform: "translateY(-50%) rotate(45deg)",
+                        zIndex: 0,
+                      },
+                    },
+                  }}
+                  transformOrigin={{ horizontal: "right", vertical: "top" }}
+                  anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                  {...bindMenu(popupState)}
+                >
+                  {secondaryItems.map(
+                    (
+                      { id, attributes: { name, navigation_name, slug } },
+                      i
+                    ) => (
+                      <MenuItem
+                        sx={{
+                          fontWeight: 400,
+                          fontSize: "0.875rem",
+                          cursor: "pointer",
+                        }}
+                        key={i}
+                        onClick={() => {
+                          popupState.close();
+                          handleClick(`/intervention/${slug}/${id}`);
+                        }}
+                      >
+                        {navigation_name || name}
+                      </MenuItem>
+                    )
+                  )}
+                </Menu>
+              </>
+            )}
+          </PopupState>
+        </Box>
+
+        {primaryItems.map(
+          ({ id, attributes: { name, navigation_name, slug } }) => (
+            <Box component="li" key={id}>
+              <Link href={`/intervention/${slug}/${id}`}>
                 <Typography
                   component="span"
                   color="white"
@@ -144,12 +144,12 @@ export default function Nav() {
                     },
                   }}
                 >
-                  {name}
+                  {navigation_name || name}
                 </Typography>
               </Link>
-            )}
-          </Box>
-        ))}
+            </Box>
+          )
+        )}
 
         <Box component="li">
           <Button

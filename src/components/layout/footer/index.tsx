@@ -49,8 +49,7 @@ export default function Footer() {
         mt="auto"
         bgcolor="secondary.main"
         color="#fff"
-        pb={4}
-        pt={10}
+        py={4}
       >
         <Container>
           <Grid container spacing={5}>
