@@ -10,9 +10,9 @@ export default async function handler(
     res.status(405);
     res.end();
   } else {
-    try {
-      const data = req.body as AppointementFormData;
+    const data = req.body as AppointementFormData;
 
+    await new Promise((resolve, reject) => {
       mailer.sendMail(
         {
           to: "mrbileltn@gmail.com",
@@ -26,12 +26,18 @@ export default async function handler(
           // @ts-ignore
           template: "contact",
         },
-        (errr, info) => {}
+        (err, info) => {
+          if (err) {
+            //console.error(err);
+            res.status(404).json({ err });
+            reject(err);
+          } else {
+            // console.log(info)
+            res.status(200).json(req.body);
+            resolve(info);
+          }
+        }
       );
-      res.status(200).json(req.body);
-    } catch (e: any) {
-      res.status(400);
-      res.end();
-    }
+    });
   }
 }
