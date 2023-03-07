@@ -10,7 +10,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
+import { useRef, useEffect } from "react";
 
 type props = {
   banner: {
@@ -27,6 +27,25 @@ export default function HomeBanner({
   const { palette } = useTheme();
 
   const isDesktop = useMediaQuery("(min-width:1281px)");
+
+  const videoRef = useRef<HTMLVideoElement>();
+
+  useEffect(() => {
+    const playVideo = async () => {
+      const video = videoRef?.current;
+
+      if (video) {
+        try {
+          await video.play();
+          console.log("playing")
+        } catch (e: any) {
+          console.log(e);
+        }
+      }
+    };
+
+    playVideo();
+  }, []);
 
   return (
     <Stack
@@ -53,10 +72,11 @@ export default function HomeBanner({
         }}
       ></Box>
       <Box
+        ref={videoRef}
         component="video"
-        autoPlay
         muted
         loop
+        playsInline
         sx={{
           zIndex: "-1",
           objectFit: "cover",
@@ -66,6 +86,7 @@ export default function HomeBanner({
       >
         <Box
           component="source"
+          type={video.data.attributes.mime}
           src={`${API_ENDPOINT}${video.data.attributes.url}`}
         ></Box>
       </Box>
