@@ -12,6 +12,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import Appointement from "./appointement";
 import { cloneElement } from "react";
+import { socialUrls } from "@/const/data";
 
 export default function TopBar() {
   const {
@@ -81,15 +82,15 @@ export default function TopBar() {
                 {[
                   {
                     icon: <FacebookOutlinedIcon />,
-                    link: "https://www.facebook.com/Chirurgieesthetiquetunisie/",
+                    link: socialUrls.facebook,
                   },
                   {
                     icon: <InstagramIcon />,
-                    link: "https://www.instagram.com/healthtraveltunisie/?hl=fr",
+                    link: socialUrls.instagram,
                   },
                   {
                     icon: <YouTubeIcon />,
-                    link: "https://www.youtube.com/@healthtraveltunisie3",
+                    link: socialUrls.youtube,
                   },
                 ].map(({ icon, link }, i) => (
                   <Stack

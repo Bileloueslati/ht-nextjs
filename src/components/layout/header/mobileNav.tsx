@@ -26,11 +26,11 @@ export default function MobileNav() {
     setOpen(false);
   };
 
-  const {interventions} = useGlobalContext()
+  const { interventions } = useGlobalContext();
 
   return (
     <Box>
-      <Button onClick={toggle} size="large">
+      <Button onClick={toggle} variant="text" size="large">
         <MenuIcon fontSize="large" />
       </Button>
       <Drawer
@@ -61,7 +61,7 @@ export default function MobileNav() {
         </Box>
 
         <List sx={{ mt: 4 }}>
-          {interventions.map(({attributes: { name, slug }}) => (
+          {interventions.map(({ attributes: { name, slug } }) => (
             <Fragment key={name}>
               <ListItem>
                 <Link href={name}>

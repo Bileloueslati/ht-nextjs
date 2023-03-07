@@ -92,7 +92,7 @@ export default function Temoignage({
               borderRadius: "10px",
               transition: "transform 1000ms ease-in-out",
               transformOrigin: "left top",
-              objectFit: "cover"
+              objectFit: "cover",
             }}
             onError={() => {
               setImageSrc(`${API_ENDPOINT}${image.data.attributes.url}`);
@@ -130,12 +130,13 @@ export default function Temoignage({
         <Fade in={open}>
           <Box sx={style}>
             {isLoading && (
-              <Box sx={{ display: "flex", ...style }}>
+              <Box sx={{ ...style, width: "auto", display: "flex" }}>
                 <CircularProgress />
               </Box>
             )}
-            <iframe
-              style={{ border: 0 }}
+            <Box
+              component="iframe"
+              sx={{ border: "1px solid #fff" }}
               width={isDesktop ? 700 : "100%"}
               height={400}
               src={`https://www.youtube.com/embed/${videoId}`}

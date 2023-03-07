@@ -37,7 +37,6 @@ export default function HomeBanner({
       if (video) {
         try {
           await video.play();
-          console.log("playing")
         } catch (e: any) {
           console.log(e);
         }
@@ -56,7 +55,7 @@ export default function HomeBanner({
         overflow: "hidden",
         height: {
           lg: "100vh",
-          xs: "70vh",
+          xs: "60vh",
         },
       }}
     >

@@ -34,12 +34,14 @@ export default function Category({
     },
   },
 }: Props) {
- 
-  console.log(seo)
+  console.log(seo);
 
   return (
     <>
-      <Seo metaTitle={seo?.metaTitle} metaDescription={seo?.metaDescription} />
+      <Seo
+        metaTitle={seo?.metaTitle || name}
+        metaDescription={seo?.metaDescription}
+      />
 
       <Layout>
         <Banner title={name} />
@@ -126,7 +128,7 @@ export async function getServerSideProps(context: any) {
   const { id } = context.query;
 
   const { data: category } = await fetchFromApi(
-    `/services/${id}?populate[image]=*&populate[services][populate]=*&populate[SEO]=*`
+    `/services/${id}?populate[image]=*&populate[services][populate]=*&populate[seo]=*`
   );
 
   return {

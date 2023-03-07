@@ -20,6 +20,8 @@ import Image from "next/image";
 import NextLink from "next/link";
 import { useTheme } from "@mui/material/styles";
 import { useGlobalContext } from "@/contexts/globalData";
+import { cloneElement } from "react";
+import { socialUrls } from "@/const/data";
 
 const BlockTitle = ({ title }: { title: string }) => (
   <Typography
@@ -36,7 +38,10 @@ const BlockTitle = ({ title }: { title: string }) => (
 export default function Footer() {
   const { interventions } = useGlobalContext();
 
-  const firstNavColumn = interventions.slice(0, Math.ceil(interventions.length / 2));
+  const firstNavColumn = interventions.slice(
+    0,
+    Math.ceil(interventions.length / 2)
+  );
 
   const secondNavColumn = interventions.slice(firstNavColumn.length);
 
@@ -76,60 +81,47 @@ export default function Footer() {
                 gap={1}
                 sx={{ listStyle: "none", p: 0 }}
               >
-                <Stack
-                  component="li"
-                  justifyContent="center"
-                  alignItems="center"
-                  sx={{
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    borderRadius: 2,
-                    width: 40,
-                    height: 40,
-                    p: 2,
-                    textAlign: "center",
-                    "&:hover": {
-                      backgroundColor: "primary.main",
-                    },
-                  }}
-                >
-                  <FacebookOutlinedIcon fontSize="small" />
-                </Stack>
-                <Stack
-                  component="li"
-                  justifyContent="center"
-                  alignItems="center"
-                  sx={{
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    borderRadius: 2,
-                    width: 40,
-                    height: 40,
-                    p: 2,
-                    textAlign: "center",
-                    "&:hover": {
-                      backgroundColor: "primary.main",
-                    },
-                  }}
-                >
-                  <InstagramIcon fontSize="small" />
-                </Stack>
-                <Stack
-                  component="li"
-                  justifyContent="center"
-                  alignItems="center"
-                  sx={{
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    borderRadius: 2,
-                    width: 40,
-                    height: 40,
-                    p: 2,
-                    textAlign: "center",
-                    "&:hover": {
-                      backgroundColor: "primary.main",
-                    },
-                  }}
-                >
-                  <YouTubeIcon fontSize="small" />
-                </Stack>
+                {[
+                  {
+                    icon: <FacebookOutlinedIcon />,
+                    link: socialUrls.facebook,
+                  },
+                  {
+                    icon: <InstagramIcon />,
+                    link: socialUrls.instagram,
+                  },
+                  {
+                    icon: <YouTubeIcon />,
+                    link: socialUrls.youtube,
+                  },
+                ].map(({ icon, link }, i) => (
+                  <Stack
+                    key={i}
+                    component="li"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                      backgroundColor: "rgba(255, 255, 255, 0.1)",
+                      borderRadius: 2,
+                      width: 40,
+                      height: 40,
+                      lineHeight: 40,
+                      "&:hover": {
+                        backgroundColor: "primary.main",
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{ display: "flex" }}
+                      component="a"
+                      href={link}
+                      target="_blank"
+                      color="#fff"
+                    >
+                      {cloneElement(icon, { size: "small", color: "inherit" })}
+                    </Box>
+                  </Stack>
+                ))}
               </Stack>
             </Grid>
 
