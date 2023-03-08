@@ -27,8 +27,7 @@ export default function Contact() {
 
   const onSubmit = async (data: any) => {
     try {
-      console.log(data);
-      // await Api.post("/contact", data);
+      await Api.post("/contact", data);
     } catch (e: any) {}
   };
 
