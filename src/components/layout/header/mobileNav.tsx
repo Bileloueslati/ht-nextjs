@@ -176,12 +176,21 @@ export default function MobileNav() {
                     <List>
                       {services.data.map(
                         (
-                          { id, attributes: { name, slug, navigation_name } },
+                          {
+                            id,
+                            attributes: {
+                              name,
+                              slug: serviceSlug,
+                              navigation_name,
+                            },
+                          },
                           i
                         ) => (
                           <Fragment key={name}>
                             <ListItem>
-                              <Link href={`/intervention/${slug}/${id}`}>
+                              <Link
+                                href={`/intervention/${slug}/${id}/${serviceSlug}`}
+                              >
                                 <Typography
                                   sx={{ fontWeight: 600 }}
                                   component="span"
@@ -224,6 +233,14 @@ export default function MobileNav() {
             <Link href="/blog">
               <Typography sx={{ fontWeight: 600 }} component="span">
                 Blog
+              </Typography>
+            </Link>
+          </ListItem>
+          <Divider component="li" />
+          <ListItem>
+            <Link href="/contact">
+              <Typography sx={{ fontWeight: 600 }} component="span">
+                Contact
               </Typography>
             </Link>
           </ListItem>
