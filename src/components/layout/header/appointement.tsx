@@ -30,6 +30,7 @@ import EastIcon from "@mui/icons-material/East";
 import { countries, CountryType } from "@/const/countries";
 import Image from "next/image";
 import { useEffect } from "react";
+import { Api } from "@/libs/axios";
 
 registerLocale("fr", fr);
 
@@ -95,7 +96,7 @@ export default function Appointement({ open: defaultOpen = false }: Props) {
 
   const onSubmit = async (data: any) => {
     try {
-      await axios.post("/api/contact", data);
+      await Api.post("/appointement", data);
     } catch (e: any) {
       console.log(e);
     }
@@ -126,7 +127,7 @@ export default function Appointement({ open: defaultOpen = false }: Props) {
         size="small"
         startIcon={<CalendarMonthIcon />}
       >
-        Prenez rendez-vous
+        Demande de consulation
       </Button>
 
       <Modal
@@ -242,13 +243,24 @@ export default function Appointement({ open: defaultOpen = false }: Props) {
                       label="Numéro de téléphone"
                       {...register("phone_number", { required: true })}
                       error={!!errors.phone_number}
+                      type="number"
+                      sx={{
+                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                          {
+                            margin: 0,
+                            appearance: "none",
+                          },
+                      }}
                       fullWidth
                     />
                   </Grid>
                   <Grid item lg={6} xs={12}>
                     <TextField
                       label="Email"
-                      {...register("email", { required: true })}
+                      {...register("email", {
+                        required: true,
+                        pattern: /\S+@\S+\.\S+/,
+                      })}
                       error={!!errors.email}
                       fullWidth
                     />

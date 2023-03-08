@@ -25,3 +25,7 @@
   li.react-datepicker__time-list-item--selected {
   background-color: #5bb7e1 !important;
 }
+
+.react-datepicker-popper[data-placement^="bottom"] {
+  z-index: 99999;
+}

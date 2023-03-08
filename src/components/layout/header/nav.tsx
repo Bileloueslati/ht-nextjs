@@ -147,7 +147,11 @@ export default function Nav({ fixed }: Props) {
                     <>
                       <Button
                         variant="text"
-                        sx={{ color, transitionProperty: "background-color" }}
+                        sx={{
+                          color,
+                          transitionProperty: "background-color",
+                          fontSize: "1rem",
+                        }}
                         {...bindTrigger(popupState)}
                       >
                         {navigation_name || name}
@@ -244,6 +248,24 @@ export default function Nav({ fixed }: Props) {
               </Box>
             )
         )}
+
+        <Box component="li">
+          <Link href="/contact">
+            <Typography
+              component="span"
+              fontWeight={500}
+              fontSize={"1rem"}
+              sx={{
+                "&:hover": {
+                  color: "primary.main",
+                },
+                color,
+              }}
+            >
+              Contact
+            </Typography>
+          </Link>
+        </Box>
 
         <Box component="li">
           <Button

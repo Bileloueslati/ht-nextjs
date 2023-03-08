@@ -1,7 +1,8 @@
 import axios, { AxiosInstance, AxiosError } from "axios";
-
-const { API_END_POINT } = process.env;
-
+/**
+ * @deprecated
+ * use Api instead
+ */
 const http: AxiosInstance = axios.create({
   headers: {
     Accept: "application/json",
@@ -9,12 +10,16 @@ const http: AxiosInstance = axios.create({
   },
 });
 
+
+
 export const isHttpError = (e: unknown): e is AxiosError =>
   axios.isAxiosError(e);
 
 http.interceptors.request.use((config) => {
-  config.baseURL = API_END_POINT;
+  config.baseURL = process.env.NEXT_PUBLIC_API_END_POINT;
   return config;
 });
+
+export const Api = http;
 
 export default http;

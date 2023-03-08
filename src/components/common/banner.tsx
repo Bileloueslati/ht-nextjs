@@ -31,7 +31,7 @@ export default function Banner({ title, subtitle = "Health Travel" }: Props) {
           width: "100%",
           left: 0,
           top: 0,
-          backgroundColor: "rgba(19, 35, 47, 0.63)",
+          backgroundColor: "rgba(19, 35, 47, 0.8)",
         }}
       ></Box>
 

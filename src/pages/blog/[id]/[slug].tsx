@@ -1,13 +1,12 @@
 import Box from "@mui/material/Box";
-import { GetServerSidePropsResult } from "next";
 import { Article as ArticleT } from "@/__typescript";
 import Layout from "@/components/layout";
 import Image from "next/image";
-import image from "../../../assets/img/team.jpeg";
 import { Container, Divider, Grid, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 import { API_ENDPOINT, fetchFromApi } from "@/const";
 import BlogCard from "@/components/common/blogCard";
+import Banner from "@/components/common/banner";
 
 type Props = {
   article: {
@@ -26,63 +25,8 @@ export default function Article({
 }: Props) {
   return (
     <Layout>
-      <Box
-        sx={{
-          height: 400,
-          position: "relative",
-        }}
-      >
-        <Image
-          src={image}
-          style={{
-            objectFit: "cover",
-          }}
-          alt=""
-          fill
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            zIndex: 2,
-            height: "100%",
-            width: "100%",
-            left: 0,
-            top: 0,
-            backgroundColor: "rgba(19, 35, 47, 0.63)",
-          }}
-        ></Box>
-
-        <Box
-          sx={{
-            zIndex: 2,
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            textAlign: "center",
-            pt: 15,
-          }}
-        >
-          <Typography
-            variant="caption"
-            fontWeight={500}
-            color="primary"
-            fontSize={20}
-          >
-            Blog
-          </Typography>
-          <Typography
-            variant="h1"
-            fontSize={{
-              xs: 22,
-              lg: 40,
-            }}
-            color="#fff"
-          >
-            {attributes.title}
-          </Typography>
-        </Box>
-      </Box>
+      
+      <Banner title={attributes.title} />
 
       <Box my={5}>
         <Container>
