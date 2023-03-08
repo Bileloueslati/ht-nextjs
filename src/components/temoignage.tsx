@@ -137,8 +137,8 @@ export default function Temoignage({
             <Box
               component="iframe"
               sx={{ border: "1px solid #fff" }}
-              width={isDesktop ? 700 : "100%"}
-              height={400}
+              width={isDesktop ? 900 : "100%"}
+              height={isDesktop ? 500 : 400}
               src={`https://www.youtube.com/embed/${videoId}`}
               title={intervention}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
