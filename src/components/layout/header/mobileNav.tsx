@@ -79,14 +79,24 @@ export default function MobileNav() {
 
         <List sx={{ mt: 4 }}>
           <ListItem>
+            <Link href="/">
+              <Typography sx={{ fontWeight: 600 }} component="span">
+                Accueil
+              </Typography>
+            </Link>
+          </ListItem>
+
+          <Divider component="li" />
+
+          <ListItem>
             <Link href="/about">
               <Typography sx={{ fontWeight: 600 }} component="span">
                 A propos
               </Typography>
             </Link>
           </ListItem>
-
           <Divider component="li" />
+
           <ListItem sx={{ p: 0 }}>
             <Accordion
               sx={{
@@ -102,7 +112,7 @@ export default function MobileNav() {
               }}
             >
               <AccordionSummary
-                sx={{ fontWeight: 600 }}
+                sx={{ fontWeight: 600, color: "secondary.main" }}
                 component="span"
                 expandIcon={<ExpandMoreIcon />}
               >
@@ -139,19 +149,69 @@ export default function MobileNav() {
 
           <Divider component="li" />
           {primaryItems.map(
-            ({ id, attributes: { name, slug, navigation_name } }) => (
-              <Fragment key={name}>
-                <ListItem>
-                  <Link href={`/intervention/${slug}/${id}`}>
-                    <Typography sx={{ fontWeight: 600 }} component="span">
-                      {navigation_name || name}
-                    </Typography>
-                  </Link>
-                </ListItem>
-                <Divider component="li" />
-              </Fragment>
-            )
+            ({ id, attributes: { name, slug, navigation_name, services } }) =>
+              services?.data.length ? (
+                <Accordion
+                  key={id}
+                  sx={{
+                    "&.MuiPaper-root": {
+                      width: "100%",
+                    },
+                    "&.MuiListItem-root": {
+                      padding: 0,
+                    },
+                    "&.MuiAccordion-root": {
+                      boxShadow: "none",
+                    },
+                  }}
+                >
+                  <AccordionSummary
+                    sx={{ fontWeight: 600, color: "secondary.main" }}
+                    component="span"
+                    expandIcon={<ExpandMoreIcon />}
+                  >
+                    {navigation_name || name}
+                  </AccordionSummary>
+                  <AccordionDetails sx={{ padding: 0 }}>
+                    <List>
+                      {services.data.map(
+                        (
+                          { id, attributes: { name, slug, navigation_name } },
+                          i
+                        ) => (
+                          <Fragment key={name}>
+                            <ListItem>
+                              <Link href={`/intervention/${slug}/${id}`}>
+                                <Typography
+                                  sx={{ fontWeight: 600 }}
+                                  component="span"
+                                >
+                                  {navigation_name || name}
+                                </Typography>
+                              </Link>
+                            </ListItem>
+                            {i < services.data.length - 1 && (
+                              <Divider component="li" />
+                            )}
+                          </Fragment>
+                        )
+                      )}
+                    </List>
+                  </AccordionDetails>
+                </Accordion>
+              ) : (
+                <Fragment key={name}>
+                  <ListItem>
+                    <Link href={`/intervention/${slug}/${id}`}>
+                      <Typography sx={{ fontWeight: 600 }} component="span">
+                        {navigation_name || name}
+                      </Typography>
+                    </Link>
+                  </ListItem>
+                </Fragment>
+              )
           )}
+          <Divider component="li" />
           <ListItem>
             <Link href="/temoignages">
               <Typography sx={{ fontWeight: 600 }} component="span">
