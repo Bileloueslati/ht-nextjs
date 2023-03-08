@@ -27,7 +27,8 @@ export default function Contact() {
 
   const onSubmit = async (data: any) => {
     try {
-      await Api.post("/contact", data);
+      console.log(data);
+      // await Api.post("/contact", data);
     } catch (e: any) {}
   };
 
@@ -90,15 +91,15 @@ export default function Contact() {
                       <Controller
                         control={control}
                         name="subject"
-                        render={({ field: { onChange, value } }) => (
+                        defaultValue="Demande consultation"
+                        render={({ field }) => (
                           <FormControl fullWidth>
                             <InputLabel id="subject">Objet</InputLabel>
                             <Select
                               labelId="subject"
                               label="Objet"
-                              onChange={onChange}
-                              value={value || "Demande consultation"}
                               disabled={isSubmitSuccessful}
+                              {...field}
                             >
                               {[
                                 "Demande consultation",
