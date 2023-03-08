@@ -6,7 +6,11 @@ import { useRouter } from "next/router";
 import { useGlobalContext } from "@/contexts/globalData";
 import { CRM_URL } from "@/const";
 
-export default function Nav() {
+type Props = {
+  fixed: boolean;
+};
+
+export default function Nav({ fixed }: Props) {
   const router = useRouter();
 
   const handleClick = (href: string) => {
@@ -22,6 +26,8 @@ export default function Nav() {
   const secondaryItems = interventions.filter(
     ({ attributes: { primary_nav } }) => Boolean(primary_nav) === false
   );
+
+  const color = fixed ? "secondary.main" : "#fff";
 
   return (
     <Box
@@ -40,19 +46,18 @@ export default function Nav() {
         component="ul"
         justifyContent="end"
         alignItems="center"
-        sx={{ listStyle: "none" }}
       >
         <Box component="li">
           <Link href="/about">
             <Typography
               component="span"
-              color="white"
               fontWeight={500}
               fontSize={"1rem"}
               sx={{
                 "&:hover": {
                   color: "primary.main",
                 },
+                color,
               }}
             >
               A propos
@@ -66,7 +71,11 @@ export default function Nav() {
               <>
                 <Button
                   variant="text"
-                  sx={{ color: "#fff", fontSize: "1rem" }}
+                  sx={{
+                    color,
+                    fontSize: "1rem",
+                    transitionProperty: "background-color",
+                  }}
                   {...bindTrigger(popupState)}
                 >
                   Interventions
@@ -138,7 +147,7 @@ export default function Nav() {
                     <>
                       <Button
                         variant="text"
-                        sx={{ color: "#fff", fontSize: "1rem" }}
+                        sx={{ color, transitionProperty: "background-color" }}
                         {...bindTrigger(popupState)}
                       >
                         {navigation_name || name}
@@ -220,7 +229,7 @@ export default function Nav() {
                 <Link href={`/intervention/${slug}/${id}`}>
                   <Typography
                     component="span"
-                    color="white"
+                    color={color}
                     fontWeight={500}
                     fontSize={"1rem"}
                     sx={{

@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Container,
-  Grid,
   Typography,
   Stack,
   alpha,
@@ -19,6 +18,7 @@ import Link from "next/link";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import GridCard from "@/components/common/gridCard";
 import Seo from "@/components/common/seo";
+import Grid from "@mui/material/Unstable_Grid2";
 
 type Props = {
   category: {
@@ -53,14 +53,8 @@ export default function Category({
           }}
         >
           <Container>
-            <Grid
-              container
-              spacing={{
-                lg: 4,
-                xs: 2,
-              }}
-            >
-              <Grid item lg={8} xs={12}>
+            <Grid container sx={{ flexGrow: 1 }}>
+              <Grid mdOffset={1} md={10} xs={12}>
                 <Box position="relative" height={300}>
                   <Image
                     src={`${API_ENDPOINT}${image.data.attributes.url}`}
@@ -103,7 +97,7 @@ export default function Category({
                       id,
                       attributes: { slug: serviceSlug, name, ...rest },
                     }) => (
-                      <Grid key={id} item lg={6} xs={12}>
+                      <Grid key={id} lg={6} xs={12}>
                         <GridCard
                           link={`/intervention/${slug}/${id}/${serviceSlug}`}
                           title={name}
@@ -114,8 +108,6 @@ export default function Category({
                   )}
                 </Grid>
               </Grid>
-
-              <Grid item lg={4} xs={12}></Grid>
             </Grid>
           </Container>
         </Box>

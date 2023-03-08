@@ -30,10 +30,6 @@ export default function TopBar() {
           <Stack component="ul" direction="row" spacing={4} alignItems="center">
             {[
               {
-                name: "Avant & Aprés",
-                link: "",
-              },
-              {
                 name: "Témoignages",
                 link: "/temoignages",
               },

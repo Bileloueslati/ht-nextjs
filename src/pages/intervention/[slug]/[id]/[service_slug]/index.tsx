@@ -3,17 +3,10 @@ import Seo from "@/components/common/seo";
 import Layout from "@/components/layout";
 import { API_ENDPOINT, CRM_URL, fetchFromApi } from "@/const";
 import { Intervention, Pagination } from "@/__typescript";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Typography,
-  Stack,
-  alpha,
-} from "@mui/material";
+import { Box, Button, Container, Grid } from "@mui/material";
 import Image from "next/image";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 type Props = {
   intervention: Intervention;
@@ -34,7 +27,7 @@ export default function InterventionService({
       <Layout>
         <Banner title={name} />
         <Box
-          my={5}
+          my={2}
           pb={{
             lg: 2,
             xs: 2,
@@ -62,24 +55,14 @@ export default function InterventionService({
                 <ReactMarkdown className="markdown_content">
                   {content}
                 </ReactMarkdown>
-                <Box
-                  textAlign="center"
-                  mx="auto"
-                  mt={4}
-                  mb={5}
-                  sx={{
-                    display: {
-                      lg: "block",
-                      xs: "none",
-                    },
-                  }}
-                >
+                <Box textAlign="center" mx="auto" mt={4} mb={5}>
                   <Button
                     variant="contained"
                     size="large"
                     component="a"
                     href={CRM_URL}
                     target="_blank"
+                    startIcon={<ChevronRightIcon />}
                   >
                     Demander un devis
                   </Button>
@@ -96,20 +79,18 @@ export default function InterventionService({
 }
 
 export async function getServerSideProps(context: any) {
-  const { id, slug, service_slug } = context.query;
+  const { service_slug } = context.query;
 
   const { data: resData } = await fetchFromApi<Pagination<Intervention>>(
-    `/intervenions?filters[slug]=${service_slug}&populate=*&populate[seo]=*`
+    `/intervenions?filters[slug]=${service_slug}&populate=*`
   );
+
   // @ts-ignore
   if (!resData.data.length) {
     return {
       notFound: true,
     };
   }
-
-  console.log(resData.data[0]);
-
   return {
     props: { intervention: resData.data[0] },
   };

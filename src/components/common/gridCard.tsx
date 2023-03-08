@@ -15,12 +15,13 @@ type Props = {
 export default function GridCard({ title, description, link, image }: Props) {
   return (
     <Box
-    
       sx={{
         transition: "all .4s ease",
         "&:hover": {
           ".content": {
-            height: "160px",
+            height: {
+              lg: "160px",
+            },
             "&:before, &:after": {
               opacity: 1,
             },
@@ -57,7 +58,9 @@ export default function GridCard({ title, description, link, image }: Props) {
             padding: "15px 20px",
             mt: "-40px",
             backgroundColor: "#fff",
-            height: 70,
+            height: {
+              lg: 70,
+            },
             "&:before": {
               position: "absolute",
               content: `""`,
@@ -71,7 +74,9 @@ export default function GridCard({ title, description, link, image }: Props) {
               width: "calc(100% - 20px)",
               bottom: "-10px",
               height: "100%",
-              opacity: 0,
+              opacity: {
+                lg: 0,
+              },
             },
             "&:after": {
               position: "absolute",
@@ -86,7 +91,9 @@ export default function GridCard({ title, description, link, image }: Props) {
               width: "calc(100% - 40px)",
               bottom: "-20px",
               height: "100%",
-              opacity: 0,
+              opacity: {
+                lg: 0,
+              },
             },
           }}
         >
@@ -97,17 +104,36 @@ export default function GridCard({ title, description, link, image }: Props) {
             mb={0}
             lineHeight={1}
             pt="10px"
-            pb="15px"
+            sx={{
+              pb: {
+                lg: "15px",
+              },
+            }}
           >
             {title}
           </Typography>
           <Box
             className="description"
-            sx={{ opacity: 0, transition: "opacity .4s ease" }}
+            sx={{
+              opacity: {
+                lg: 0,
+              },
+              transition: "opacity .4s ease",
+            }}
           >
-            <Typography variant="caption" fontSize={13}>
+            <Typography
+              variant="caption"
+              fontSize={14}
+              sx={{ display: "block" }}
+            >
               {truncate(description, { length: 100 })}
             </Typography>
+
+            <Link href={link} passHref legacyBehavior>
+              <Button component="a" sx={{ mt: 2 }} variant="contained">
+                En savoir plus
+              </Button>
+            </Link>
           </Box>
         </Stack>
       </Box>
