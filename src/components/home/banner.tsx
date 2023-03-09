@@ -28,8 +28,6 @@ export default function HomeBanner({
 }: props) {
   const { palette } = useTheme();
 
-  console.log(video_image_poster)
-
   const isDesktop = useMediaQuery("(min-width:1281px)");
 
   const videoRef = useRef<HTMLVideoElement>(null);

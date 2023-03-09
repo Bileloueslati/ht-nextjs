@@ -250,24 +250,6 @@ export default function Nav({ fixed }: Props) {
         )}
 
         <Box component="li">
-          <Link href="/contact">
-            <Typography
-              component="span"
-              fontWeight={500}
-              fontSize={"1rem"}
-              sx={{
-                "&:hover": {
-                  color: "primary.main",
-                },
-                color,
-              }}
-            >
-              Contact
-            </Typography>
-          </Link>
-        </Box>
-
-        <Box component="li">
           <Button
             href={CRM_URL}
             target="_blank"
