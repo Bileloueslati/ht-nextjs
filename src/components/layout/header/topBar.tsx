@@ -34,7 +34,10 @@ export default function TopBar() {
           <Stack
             component="ul"
             direction="row"
-            spacing={4}
+            spacing={{
+              lg: 4,
+              xs: 2,
+            }}
             alignItems="center"
             sx={{ p: 0, m: 0 }}
           >
@@ -86,7 +89,10 @@ export default function TopBar() {
               <Stack
                 component="ul"
                 direction="row"
-                spacing={2.5}
+                spacing={{
+                  lg: 2.5,
+                  xs: 1.5,
+                }}
                 sx={{ p: 0, m: 0 }}
               >
                 {[
@@ -103,21 +109,27 @@ export default function TopBar() {
                     link: socialUrls.youtube,
                   },
                 ].map(({ icon, link }, i) => (
-                  <Stack
-                    key={i}
-                    component="li"
-                    sx={{
-                      a: {
+                  <Stack key={i} component="li">
+                    <Box
+                      component="a"
+                      href={link}
+                      target="_blank"
+                      sx={{
+                        fontSize: {
+                          lg: 23,
+                          xs: 14,
+                        },
                         color: "#fff",
                         "&:hover": {
                           color: "primary.main",
                         },
-                      },
-                    }}
-                  >
-                    <a href={link} target="_blank">
-                      {cloneElement(icon, { size: "small", color: "inherit" })}
-                    </a>
+                      }}
+                    >
+                      {cloneElement(icon, {
+                        fontSize: "inherit",
+                        color: "inherit",
+                      })}
+                    </Box>
                   </Stack>
                 ))}
               </Stack>

@@ -15,6 +15,7 @@ import Fade from "react-reveal/Fade";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useGlobalContext } from "@/contexts/globalData";
+import { truncate } from "lodash";
 
 type Props = {
   servicesContent: {
@@ -170,8 +171,16 @@ export default function InterventionCategories({
                         fontWeight={600}
                         mb={0}
                         lineHeight={1}
-                        pt="10px"
-                        pb="15px"
+                        sx={{
+                          pt: {
+                            lg: 1,
+                            xs: 1.5,
+                          },
+                          pb: {
+                            lg: 2,
+                            xs: 0,
+                          },
+                        }}
                       >
                         {name}
                       </Typography>
@@ -184,8 +193,12 @@ export default function InterventionCategories({
                           transition: "opacity .4s ease",
                         }}
                       >
-                        <Typography variant="caption" fontSize={13}>
-                          {description}
+                        <Typography
+                          variant="caption"
+                          fontSize={13}
+                          display="block"
+                        >
+                          {truncate(description, { length: 100 })}
                         </Typography>
                         <Link
                           href={`/intervention/${slug}/${id}`}
@@ -194,7 +207,11 @@ export default function InterventionCategories({
                         >
                           <Button
                             component="a"
-                            sx={{ mt: 2 }}
+                            sx={{
+                              mt: {
+                                xs: 1,
+                              },
+                            }}
                             variant="contained"
                           >
                             En savoir plus
