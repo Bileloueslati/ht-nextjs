@@ -13,8 +13,8 @@ export type Media = {
       url: string;
       mime: string;
       formats: {
-        thumbnail: {
-          url: "string";
+        [key in "thumbnail" | "large" | "medium"]: {
+          url: string;
         };
       };
     };
@@ -24,7 +24,7 @@ export type Media = {
 export type InterventionCategory = {
   id: number;
   attributes: {
-    seo?: Seo,
+    seo?: Seo;
     name: string;
     description: string;
     thumbnail: Media;
@@ -40,7 +40,7 @@ export type InterventionCategory = {
 export type Intervention = {
   id: number;
   attributes: {
-    seo?: Seo,
+    seo?: Seo;
     name: string;
     description: string;
     thumbnail: Media;

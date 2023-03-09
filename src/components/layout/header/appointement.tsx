@@ -48,7 +48,10 @@ const style = {
     lg: "80%",
     xs: "75%",
   },
-  overflowY: "scroll",
+  overflowY: {
+    lg: "hidden",
+    xs: "scroll",
+  },
   width: {
     lg: 700,
     xs: "95%",
@@ -169,7 +172,7 @@ export default function Appointement({ open: defaultOpen = false }: Props) {
                     lg: 22,
                     xs: 20,
                   }}
-                  variant="h2"
+                  variant="h3"
                   color="primary"
                 >
                   Prise de rendez-vous

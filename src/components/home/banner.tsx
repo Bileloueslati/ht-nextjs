@@ -11,10 +11,12 @@ import {
 } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useRef, useEffect } from "react";
+import { useIntersection } from "react-use";
 
 type props = {
   banner: {
     video: Media;
+    video_image_poster: Media;
     slogan: string;
     title: string;
     description: string;
@@ -22,29 +24,37 @@ type props = {
 };
 
 export default function HomeBanner({
-  banner: { video, slogan, title, description },
+  banner: { video, video_image_poster, slogan, title, description },
 }: props) {
   const { palette } = useTheme();
 
+  console.log(video_image_poster)
+
   const isDesktop = useMediaQuery("(min-width:1281px)");
 
-  const videoRef = useRef<HTMLVideoElement>();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const interaction = useIntersection(videoRef, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.6,
+  });
 
   useEffect(() => {
     const playVideo = async () => {
-      const video = videoRef?.current;
-
-      if (video) {
+      if (interaction && interaction.isIntersecting) {
         try {
-          await video.play();
+          videoRef.current?.play();
         } catch (e: any) {
           console.log(e);
         }
+      } else {
+        videoRef.current?.pause();
       }
     };
 
     playVideo();
-  }, []);
+  }, [interaction]);
 
   return (
     <Stack
@@ -76,6 +86,7 @@ export default function HomeBanner({
         muted
         loop
         playsInline
+        poster={`${API_ENDPOINT}${video_image_poster.data.attributes.formats.large.url}`}
         sx={{
           zIndex: "-1",
           objectFit: "cover",
