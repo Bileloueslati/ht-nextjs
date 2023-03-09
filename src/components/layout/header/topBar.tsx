@@ -23,11 +23,21 @@ export default function TopBar() {
     <Box
       sx={{
         backgroundColor: alpha(secondary.main, 0.4),
+        py: {
+          lg: 2,
+          xs: 1,
+        },
       }}
     >
       <Container>
         <Stack alignItems="end">
-          <Stack component="ul" direction="row" spacing={4} alignItems="center">
+          <Stack
+            component="ul"
+            direction="row"
+            spacing={4}
+            alignItems="center"
+            sx={{ p: 0, m: 0 }}
+          >
             {[
               {
                 name: "Contact",
@@ -77,7 +87,7 @@ export default function TopBar() {
                 component="ul"
                 direction="row"
                 spacing={2.5}
-                sx={{ listStyle: "none", p: 0 }}
+                sx={{ p: 0, m: 0 }}
               >
                 {[
                   {

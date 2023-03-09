@@ -17,8 +17,6 @@ export default function Header() {
   useEffect(() => {
     let previousScrollPosition = 0;
 
-    let goingDown = false;
-
     const handleScroll = () => {
       const { pageYOffset } = window;
 
@@ -26,7 +24,7 @@ export default function Header() {
 
       let goingUp = previousScrollPosition > scrollPosition;
 
-      if (pageYOffset == 0) {
+      if (pageYOffset <= 100) {
         setFixed(null);
       } else if (goingUp) {
         setFixed(true);
