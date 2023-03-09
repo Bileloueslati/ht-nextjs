@@ -21,7 +21,6 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import DatePicker, { registerLocale } from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import fr from "date-fns/locale/fr";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
