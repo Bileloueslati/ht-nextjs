@@ -8,7 +8,7 @@ type Props = {
 
 export default function Articles({ articles }: Props) {
   return (
-    <Box mt={6} py={8} sx={{ background: "#e6e6e659" }}>
+    <Box py={8} sx={{ background: "#e6e6e659" }}>
       <Container>
         <Box sx={{ textAlign: "center", mx: "auto", maxWidth: "500px", mb: 4 }}>
           <Typography

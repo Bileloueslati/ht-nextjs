@@ -6,7 +6,6 @@ import {
   Typography,
   Button,
   Stack,
-  Link as MuiLink,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";

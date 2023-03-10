@@ -35,7 +35,7 @@ export default function Temoignages({ temoignages }: Props) {
   const isDesktop = useMediaQuery("(min-width:1281px)");
 
   return (
-    <Box py={4}>
+    <Box py={8}>
       <Container>
         <Box sx={{ textAlign: "center", mx: "auto", maxWidth: "650px", mb: 4 }}>
           <Typography

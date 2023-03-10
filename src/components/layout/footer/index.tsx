@@ -188,7 +188,7 @@ export default function Footer() {
                     <Grid item lg={6} xs={6}>
                       <List>
                         {secondNavColumn.map(
-                          ({ id, attributes: { name, slug } }, i) => (
+                          ({ id, attributes: { name, navigation_name, slug } }, i) => (
                             <ListItem disableGutters key={i}>
                               <NextLink
                                 href={`/intervention/${slug}/${id}`}
@@ -217,7 +217,7 @@ export default function Footer() {
                                     component="span"
                                     color="inherit"
                                   >
-                                    {name}
+                                    {navigation_name || name}
                                   </Typography>
                                 </Link>
                               </NextLink>
