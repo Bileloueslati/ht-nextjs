@@ -6,31 +6,48 @@ import Image from "next/image";
 import Link from "next/link";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import MobileNav from "./mobileNav";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { throttle } from "lodash";
 
-export default function Header() {
-  const isDesktop = useMediaQuery("(min-width:1281px)");
+type Reducer = {
+  [key in "scrollDown" | "scrollUp" | "up"]: boolean;
+};
 
-  const [fixed, setFixed] = useState<boolean | null>(null);
+type Actions = {
+  payload: Partial<Reducer>;
+};
+
+const reducer = (state: Reducer, action: Actions) => {
+  return { ...state, ...action.payload };
+};
+
+export default function Header() {
+  const isDesktop = useMediaQuery("(min-width:1025px)");
+
+  const [{ up, scrollDown, scrollUp }, setState] = useReducer(reducer, {
+    scrollDown: false,
+    scrollUp: false,
+    up: true,
+  });
 
   useEffect(() => {
     let previousScrollPosition = 0;
 
     const handleScroll = () => {
-      const { pageYOffset } = window;
+      const { scrollY } = window;
 
-      let scrollPosition = pageYOffset;
+      setState({
+        payload: {
+          up: scrollY == 0,
+          scrollDown: scrollY > 0,
+        },
+      });
 
-      let goingUp = previousScrollPosition > scrollPosition;
+      let scrollPosition = scrollY;
 
-      if (pageYOffset <= 100) {
-        setFixed(null);
-      } else if (goingUp) {
-        setFixed(true);
-      } else {
-        setFixed(false);
-      }
+      setState({
+        payload: { scrollUp: previousScrollPosition > scrollPosition },
+      });
 
       previousScrollPosition = scrollPosition;
     };
@@ -44,26 +61,29 @@ export default function Header() {
     };
   }, []);
 
+  console.log(scrollUp);
+
   return (
     <Stack
       component="header"
       sx={{
-        position: "fixed",
-        right: "0",
+        position: up ? "absolute" : "fixed",
+        top: 0,
+        right: 0,
+        left: 0,
         zIndex: 1100,
         width: "100%",
-        boxShadow: fixed ? "1px 11px 25px 0 rgb(0 0 0 / 7%)" : "none",
-        transition: "transform 330ms ease-in-out",
-        transform:
-          fixed == true || fixed === null
-            ? "translateY(0)"
-            : "translateY(-100%)",
-        background: fixed ? "#fff" : "transparent",
+        transition: "transform .5s ease-in-out",
+        transform: up || scrollUp ? "translateY(0)" : "translateY(-100%)",
+        ...(scrollDown && {
+          background: "#fff",
+          boxShadow: "1px 11px 25px 0 rgb(0 0 0 / 7%)",
+        }),
       }}
     >
       <Box
         sx={{
-          display: fixed ? "none" : "block",
+          display: scrollDown ? "none" : "block",
         }}
       >
         <TopBar />
@@ -84,7 +104,7 @@ export default function Header() {
             <Link href="/">
               <Box
                 position="relative"
-                height={fixed ? 50 : 80}
+                height={scrollDown ? 50 : 80}
                 width={120}
                 mx="auto"
               >
@@ -99,7 +119,11 @@ export default function Header() {
           </Box>
 
           <Box>
-            {isDesktop ? <Nav fixed={Boolean(fixed)} /> : <MobileNav />}
+            {isDesktop ? (
+              <Nav fixed={!up && (scrollUp || scrollDown)} />
+            ) : (
+              <MobileNav />
+            )}
           </Box>
         </Stack>
       </Container>

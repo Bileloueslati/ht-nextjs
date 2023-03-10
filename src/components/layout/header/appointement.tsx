@@ -107,15 +107,19 @@ export default function Appointement({ open: defaultOpen = false }: Props) {
   useEffect(() => {
     const getCountry = async () => {
       try {
-        const { data } = await axios.get<{ country: { iso_code: string } }>(
+        const { data } = await axios.get<{
+          country: { iso_code: CountryType["code"] };
+        }>(
           "https://api.geoapify.com/v1/ipinfo?&apiKey=1f1107afde3a4aff803f579ebe3a32c4"
         );
 
         const country = countries.find(
           ({ code }) => code === data.country.iso_code
-        )!;
+        );
 
-        setValue("country", country);
+        if (country) {
+          setValue("country", country);
+        }
       } catch (e: any) {}
     };
     getCountry();
@@ -197,7 +201,7 @@ export default function Appointement({ open: defaultOpen = false }: Props) {
                       control={control}
                       name="date"
                       rules={{ required: true }}
-                      render={({ field: { onChange, name, value } }) => (
+                      render={({ field: { onChange, value } }) => (
                         <DatePicker
                           locale={fr}
                           minDate={new Date()}
@@ -321,23 +325,16 @@ export default function Appointement({ open: defaultOpen = false }: Props) {
                         rules={{ required: true }}
                         control={control}
                         name="contact_type"
-                        render={({ field }) => (
-                          <RadioGroup defaultValue="WhatsApp" row {...field}>
-                            <FormControlLabel
-                              value="WhatsApp "
-                              control={<Radio size="small" />}
-                              label="WhatsApp"
-                            />
-                            <FormControlLabel
-                              value="Téléphone"
-                              control={<Radio size="small" />}
-                              label="Téléphone"
-                            />
-                            <FormControlLabel
-                              value="Email"
-                              control={<Radio size="small" />}
-                              label="Email"
-                            />
+                        render={({ field: { value, ...rest } }) => (
+                          <RadioGroup value={value || "Whatsapp"} row {...rest}>
+                            {["Whatsapp", "Téléphone", "Email"].map((v) => (
+                              <FormControlLabel
+                                key={v}
+                                value={v}
+                                control={<Radio size="small" />}
+                                label={v}
+                              />
+                            ))}
                           </RadioGroup>
                         )}
                       />
