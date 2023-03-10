@@ -61,8 +61,6 @@ export default function Header() {
     };
   }, []);
 
-  console.log(scrollUp);
-
   return (
     <Stack
       component="header"

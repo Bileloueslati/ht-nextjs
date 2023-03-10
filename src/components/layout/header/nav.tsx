@@ -75,6 +75,9 @@ export default function Nav({ fixed }: Props) {
                     color,
                     fontSize: "1rem",
                     transitionProperty: "background-color",
+                    "&:hover": {
+                      color: "primary.main",
+                    },
                   }}
                   {...bindTrigger(popupState)}
                 >
@@ -151,6 +154,9 @@ export default function Nav({ fixed }: Props) {
                           color,
                           transitionProperty: "background-color",
                           fontSize: "1rem",
+                          "&:hover": {
+                            color: "primary.main",
+                          }
                         }}
                         {...bindTrigger(popupState)}
                       >
